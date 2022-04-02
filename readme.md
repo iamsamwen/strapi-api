@@ -150,7 +150,7 @@ all methods are async. For how to use query, please read <a href="https://docs.s
 |post|path, data|data: i.e., {title: 'hello'}|
 |put|path, id, data|id is the strapi data id|
 |del|path, id||
-|search|path, query|query, i.e., {title: {$contains: 'llo'}, populate: '*}|
+|search|path, query|query, i.e., {title: {$contains: 'llo'}}|
 |count|path, query||
 |get_ids|path, query||
 |get_all|path, query||
