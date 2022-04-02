@@ -28,7 +28,7 @@ With STRAPI_ADMIN_EMAIL and STRAPI_ADMIN_PASSWORD setup, strapi-api can call API
 
 The examples are assuming that you have setup .env file and created a collection type hello with field name title.
 
-### example 1
+### example 1 - simple operations
 
 ```
 'use strict';
@@ -72,7 +72,7 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
 ```
 
-### upload a media file
+### example 2 - upload a media file
 
 ```
 'use strict';
@@ -117,7 +117,7 @@ output:
 ```
 
 
-### get all content types (an api used by admin frontend)
+### example 3 - get all content types (an api used by admin frontend)
 
 ```
 'use strict';
