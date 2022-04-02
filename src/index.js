@@ -254,7 +254,7 @@ class StrapiApi {
             config = {...config, headers};
             if (this.api_debug) console.log(util.inspect(config, false, null, true));
             const { data } = await axios(config);
-            //if (this.api_debug) console.log(util.inspect(data, false, null, true));
+            if (this.api_debug) console.log(util.inspect(data, false, null, true));
             return data;
         } catch (err) {
             if (err.response && err.response.data) {
