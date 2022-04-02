@@ -94,6 +94,7 @@ node_modules
 # Tests
 ############################
 
+exmaples
 test
 tests
 __tests__

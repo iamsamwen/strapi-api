@@ -1,7 +1,7 @@
 {
   "name": "@iamsamwen/strapi-api",
-  "version": "1.0.0",
-  "description": "a simple wrapper of strapi api request util class",
+  "version": "1.0.1",
+  "description": "a wrapper of strapi api calls util class",
   "main": "src/index.js",
   "directories": {
     "test": "test"
