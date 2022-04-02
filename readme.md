@@ -156,7 +156,8 @@ all methods are async. For how to use query, please read <a href="https://docs.s
 |get_all|path, query||
 |get_page|path, query, page, pageSize||
 |del_all|path, query||
-|upload_file|filepath, {ref, id, field, path, name, caption, alternativeText}|get_files_count|query||
+|upload_file|filepath, {ref, id, field, path, name, caption, alternativeText}|
+|get_files_count|query||
 |get_files_page|page = 1, pageSize = this.page_size, query||
 |get_all_files|query||
 |del_all_files|query||
