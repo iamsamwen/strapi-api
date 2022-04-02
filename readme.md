@@ -85,7 +85,7 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
     const strapi = new StrapiApi();
 
-    const result = await strapi.upload_file(__dirname + '/test/image.png', {name: 'test name', caption: 'test caption', alternativeText: 'test alt text'});
+    const result = await strapi.upload_file(__dirname + '/image.png', {name: 'test name', caption: 'test caption', alternativeText: 'test alt text'});
 
     console.log(result);
 
