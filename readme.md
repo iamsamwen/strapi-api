@@ -156,7 +156,7 @@ all methods are async. For how to use query, please read <a href="https://docs.s
 | -------------- | ------------------------------------------------------------ |------------------------------------------------------------|
 | constructor| {base_url, api_token, admin_email, admin_password, page_size, batch_size, publication_state, api_log, api_debug} | set with environment variable, prefix with STRAPI_ and capitalized name. for example: base_url => STRAPI_BASE_URL |
 |get|path, id, query| path is an api path, i.e., /api/tests|
-|post|path, data|data: {id: 123, attributes: {title: 'hello'}}|
+|post|path, data|{data: {title: 'hello'}}|
 |put|path, id, data|id is the strapi data id|
 |del|path, id||
 |search|path, query|query: {title: {$contains: 'llo'}}|
