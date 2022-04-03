@@ -3,19 +3,19 @@
 A wrapper of strapi api calls util class to simplify the code to retrieve, create, update and delete data from strapi server. 
 
 ## Install
-
+```bash
      npm install @iamsamwen/strapi-api
-
+```
 OR
-
+```bash
      yarn add @iamsamwen/strapi-api
-
+```
 
 ## Setup 
 
 create ***.env*** file in your project root directory with following name and values:
 
-```
+```bash
 STRAPI_BASE_URL=http://localhost:1337
 STRAPI_API_TOKEN=xxx
 STRAPI_ADMIN_EMAIL=xxx
