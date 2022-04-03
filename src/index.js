@@ -8,16 +8,19 @@ const util = require('util');
 
 class StrapiApi {
 
-    constructor({base_url, api_token, admin_email, admin_password, page_size, batch_size, publication_state, api_log, api_debug} = {}) {
+    constructor({base_url, api_token, admin_email, admin_password, publication_state, populate, page_size, batch_size, api_log, api_debug} = {}) {
 
         this.base_url = base_url || process.env.STRAPI_BASE_URL || 'http://localhost:1337';
         this.admin_email = admin_email || process.env.STRAPI_ADMIN_EMAIL;
         this.admin_password = admin_password || process.env.STRAPI_ADMIN_PASSWORD;
         this.api_token = api_token || process.env.STRAPI_API_TOKEN;
 
+        this.publication_state = publication_state || process.env.STRAPI_PUBLICATION_STATE;
+        this.populate = populate || process.env.STRAPI_POPULATE;
+
         this.page_size = page_size || process.env.STRAPI_PAGE_SIZE || 100;
         this.batch_size = batch_size || process.env.STRAPI_BATCH_SIZE || 16;
-        this.publication_state = publication_state || process.env.STRAPI_PUBLICATION_STATE;
+
         this.api_log = api_log || process.env.STRAPI_API_LOG;
         this.api_debug = api_debug || process.env.STRAPI_API_DEBUG;
 
@@ -202,6 +205,9 @@ class StrapiApi {
         query = query ? { ...query } : {};
         if (!query.publicationState && this.publication_state) {
             query.publicationState = this.publication_state;
+        }
+        if (!query.populate && this.populate) {
+            query.populate = this.populate;
         }
         let str = qs.stringify(query, { encodeValuesOnly: true });
         if (str) str = '?' + str;

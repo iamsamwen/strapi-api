@@ -6,6 +6,6 @@
   "author": "Sam Wen",
   "license": "ISC",
   "dependencies": {
-    "@iamsamwen/strapi-api": "^1.0.9"
+    "@iamsamwen/strapi-api": "^1.1.0"
   }
 }
