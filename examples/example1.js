@@ -11,29 +11,29 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
     // create an entry
     //
-    let result = await strapi.post('/api/hellos', {title: 'example'});
+    let result = await strapi.post('/api/tests', {data: {title: 'example'}});
     console.log(result);
 
     const id = result.data.id;
 
     // get the created entry
     //
-    result = await strapi.get('/api/hellos', id);
+    result = await strapi.get('/api/tests', id);
     console.log(result);
 
     // get all entries of hellos
     //
-    result = await strapi.get_all('/api/hellos');
+    result = await strapi.get_all('/api/tests');
     console.log(result);
 
     // update the entry
     //
-    result = await strapi.put('/api/hellos', id, {title: 'update example'});
+    result = await strapi.put('/api/tests', id, {data: {title: 'update example'}});
     console.log(result);
 
     // delete the entry
     //
-    result = await strapi.del('/api/hellos', id);
+    result = await strapi.del('/api/tests', id);
     console.log(result);
 
 })();

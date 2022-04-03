@@ -17,13 +17,13 @@ describe('Test search and del_all', () => {
         {
             const strapi = new StrapiApi();
             for (let i = 0; i < 10; i++) {
-                await strapi.post('/api/hellos', {title: `test search ${i}`});
+                await strapi.post('/api/tests', {data: {title: `test search ${i}`}});
             }
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.search('/api/hellos');
+            const result = await strapi.search('/api/tests');
             //console.log(result);
             expect(result).haveOwnProperty('data');
             assert.isArray(result.data);
@@ -33,7 +33,7 @@ describe('Test search and del_all', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.search('/api/hellos', {filters: {title: {'$startsWith': 'test'}}});
+            const result = await strapi.search('/api/tests', {filters: {title: {'$startsWith': 'test'}}});
             //console.log(result);
             expect(result).haveOwnProperty('data');
             assert.isArray(result.data);
@@ -43,7 +43,7 @@ describe('Test search and del_all', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.del_all('/api/hellos');
+            const result = await strapi.del_all('/api/tests');
             //console.log(result);
             expect(result).greaterThanOrEqual(10);
         }

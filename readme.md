@@ -26,7 +26,39 @@ With STRAPI_ADMIN_EMAIL and STRAPI_ADMIN_PASSWORD setup, strapi-api can call API
 
 ## Examples
 
-The examples are assuming that you have setup .env file and created a collection type hello with field name title.
+if the ***.env*** file is setup correctly, strapi-api can create content type tests:
+
+### created content type tests with field name title
+
+```js
+'use strict';
+
+require('dotenv').config();
+
+const StrapiApi = require('@iamsamwen/strapi-api');
+
+(async () => {
+
+    const strapi = new StrapiApi();
+
+    const data = {
+        contentType: {
+            draftAndPublish: true,
+            singularName: 'test',
+            pluralName: 'tests',
+            displayName: 'test',
+            kind: 'collectionType',
+            attributes: { title: { type: 'string' } }
+        }
+    }
+    const result = await strapi.post('/content-type-builder/content-types', data);
+    
+    console.log(result);
+
+})();
+```
+
+The rest of examples are assuming that you have setup .env file and created a content type tests with field name title.
 
 ### example 1 - simple operations
 
@@ -43,29 +75,29 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
     // create an entry
     //
-    let result = await strapi.post('/api/hellos', {title: 'example'});
+    let result = await strapi.post('/api/tests', {data: {title: 'example'}});
     console.log(result);
 
     const id = result.data.id;
 
     // get the created entry
     //
-    result = await strapi.get('/api/hellos', id);
+    result = await strapi.get('/api/tests', id);
     console.log(result);
 
     // get all entries of hellos
     //
-    result = await strapi.get_all('/api/hellos');
+    result = await strapi.get_all('/api/tests');
     console.log(result);
 
     // update the entry
     //
-    result = await strapi.put('/api/hellos', id, {title: 'update example'});
+    result = await strapi.put('/api/tests', id, {data: {title: 'update example'}});
     console.log(result);
 
     // delete the entry
     //
-    result = await strapi.del('/api/hellos', id);
+    result = await strapi.del('/api/tests', id);
     console.log(result);
 
 })();
@@ -123,7 +155,7 @@ all methods are async. For how to use query, please read <a href="https://docs.s
 | name           | arguments   | comments |
 | -------------- | ------------------------------------------------------------ |------------------------------------------------------------|
 | constructor| {base_url, api_token, admin_email, admin_password, page_size, batch_size, publication_state, api_log, api_debug} | set with environment variable, prefix with STRAPI_ and capitalized name. for example: base_url => STRAPI_BASE_URL |
-|get|path, id, query| path is an api path, i.e., /api/hellos|
+|get|path, id, query| path is an api path, i.e., /api/tests|
 |post|path, data|data: {id: 123, attributes: {title: 'hello'}}|
 |put|path, id, data|id is the strapi data id|
 |del|path, id||

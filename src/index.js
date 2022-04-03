@@ -25,7 +25,7 @@ class StrapiApi {
 
     /**
      * 
-     * @param {*} path api path, i.e., /api/hellos
+     * @param {*} path api path, i.e., /api/tests
      * @param {*} id   id of the data
      * @param {*} query see see strapi doc
      * @returns the data
@@ -37,12 +37,12 @@ class StrapiApi {
 
     async post(path, data) {
         const url = this.get_url(path);
-        return await this.send_http_request({url, method: 'post', data: {data}});
+        return await this.send_http_request({url, method: 'post', data});
     }
 
     async put(path, id, data) {
         const url = this.get_url(path, id);
-        return await this.send_http_request({url, method: 'put', data: {data}});
+        return await this.send_http_request({url, method: 'put', data});
     }
 
     async del(path, id) {

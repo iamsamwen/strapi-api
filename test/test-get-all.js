@@ -18,35 +18,35 @@ describe('Test get_all, get_ids, get_page and del_all', () => {
             const strapi = new StrapiApi();
             const promises = [];
             for (let i = 0; i < 20; i++) {
-                promises.push(strapi.post('/api/hellos', {title: `test search ${i}`}));
+                promises.push(strapi.post('/api/tests', {data: {title: `test search ${i}`}}));
             }
             await Promise.all(promises);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.get_all('/api/hellos');
+            const result = await strapi.get_all('/api/tests');
             //console.log(result);
             expect(result.length).greaterThanOrEqual(20);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.get_ids('/api/hellos');
+            const result = await strapi.get_ids('/api/tests');
             //console.log(result);
             expect(result.length).greaterThanOrEqual(20);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.get_page('/api/hellos', null, 2, 10);
+            const result = await strapi.get_page('/api/tests', null, 2, 10);
             //console.log(result);
             expect(result.length).equals(10);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.del_all('/api/hellos');
+            const result = await strapi.del_all('/api/tests');
             //console.log(result);
             expect(result).greaterThanOrEqual(20);
         }

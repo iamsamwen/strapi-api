@@ -17,27 +17,27 @@ describe('Test count and del_all', () => {
         {
             const strapi = new StrapiApi();
             for (let i = 0; i < 10; i++) {
-                await strapi.post('/api/hellos', {title: `my test search ${i}`});
+                await strapi.post('/api/tests', {data: {title: `my test search ${i}`}});
             }
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.count('/api/hellos');
+            const result = await strapi.count('/api/tests');
             //console.log(result);
             expect(result).greaterThanOrEqual(10);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.count('/api/hellos', {filters: {title: {'$startsWith': 'my'}}});
+            const result = await strapi.count('/api/tests', {filters: {title: {'$startsWith': 'my'}}});
             //console.log(result);
             expect(result).greaterThanOrEqual(10);
         }
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.del_all('/api/hellos');
+            const result = await strapi.del_all('/api/tests');
             //console.log(result);
             expect(result).greaterThanOrEqual(10);
         }

@@ -17,7 +17,7 @@ describe('Test simple actions', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.post('/api/hellos', {title});
+            const result = await strapi.post('/api/tests', {data: {title}});
             //console.log(result);
             expect(result).haveOwnProperty('data');
             expect(result.data).haveOwnProperty('id');
@@ -29,7 +29,7 @@ describe('Test simple actions', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.get('/api/hellos', id);
+            const result = await strapi.get('/api/tests', id);
             //console.log(result);
             expect(result).haveOwnProperty('data');
             expect(result).haveOwnProperty('meta');
@@ -43,7 +43,7 @@ describe('Test simple actions', () => {
             let new_title = 'new test123';
 
             const strapi = new StrapiApi();
-            const result = await strapi.put('/api/hellos', id, {title: new_title});
+            const result = await strapi.put('/api/tests', id, {data: {title: new_title}});
             //console.log(result);
             expect(result).haveOwnProperty('data');
             expect(result.data).haveOwnProperty('id');
@@ -54,7 +54,7 @@ describe('Test simple actions', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.del('/api/hellos', id);
+            const result = await strapi.del('/api/tests', id);
             //console.log(result);
             expect(result).haveOwnProperty('data');
             expect(result.data).haveOwnProperty('id');

@@ -14,7 +14,7 @@ describe('Test simple actions', () => {
     it('test post', async () => {
 
         const strapi = new StrapiApi();
-        const result = await strapi.post('/api/hellos', {title: 'post test'});
+        const result = await strapi.post('/api/tests', {data: {title: 'post test'}});
         //console.log(result);
         expect(result).haveOwnProperty('data');
         expect(result.data).haveOwnProperty('id');
