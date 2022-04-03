@@ -94,6 +94,7 @@ node_modules
 # Tests
 ############################
 
+.env
 exmaples
 test
 tests
