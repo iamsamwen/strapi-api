@@ -27,8 +27,7 @@ class StrapiApi {
      * 
      * @param {*} path api path, i.e., /api/hellos
      * @param {*} id   id of the data
-     * @param {*} query see doc https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/rest/filtering-locale-publication.html
-     *            .i.e, {populate: '*'}
+     * @param {*} query see see strapi doc
      * @returns the data
      */
     async get(path, id, query) {

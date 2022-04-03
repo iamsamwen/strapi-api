@@ -1,6 +1,6 @@
 # strapi-api for strap v4
 
-A wrapper of strapi api calls util class to simplify the code to retrieve, create, update and delete data from strapi server. 
+A wrapper of strapi api calls util class to simplify the code to manipulate strapi data and media files. 
 
 ## Install
 ```bash
