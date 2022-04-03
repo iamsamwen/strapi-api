@@ -30,7 +30,7 @@ The examples are assuming that you have setup .env file and created a collection
 
 ### example 1 - simple operations
 
-```
+```js
 'use strict';
 
 require('dotenv').config();
@@ -74,7 +74,7 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
 ### example 2 - upload a media file
 
-```
+```js
 'use strict';
 
 require('dotenv').config();
@@ -85,33 +85,33 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
     const strapi = new StrapiApi();
 
-    const result = await strapi.upload_file(__dirname + '/image.png', {name: 'test name', caption: 'test caption', alternativeText: 'test alt text'});
+    const result = await strapi.upload_file(__dirname + '/image.png', {path: 't-shirts', name: 'color blue', caption: 't-shirts', alternativeText: 'color blue'});
 
     console.log(result);
 
-})();
+})()
 
 output:
 
 [
   {
-    id: 534,
-    name: 'test name',
-    alternativeText: 'test alt text',
-    caption: 'test caption',
+    id: 552,
+    name: 'color blue',
+    alternativeText: 'color blue',
+    caption: 't-shirts',
     width: 104,
     height: 52,
     formats: null,
-    hash: 'test_name_46052f1215',
+    hash: 'color_blue_8382d9f618',
     ext: '.png',
     mime: 'image/png',
     size: 0.62,
-    url: '/uploads/test_name_46052f1215.png',
+    url: 'https://.../t-shirts/color_blue_8382d9f618.png',
     previewUrl: null,
-    provider: 'local',
+    provider: '...',
     provider_metadata: null,
-    createdAt: '2022-04-02T22:38:06.131Z',
-    updatedAt: '2022-04-02T22:38:06.131Z'
+    createdAt: '2022-04-03T11:01:15.770Z',
+    updatedAt: '2022-04-03T11:01:15.770Z'
   }
 ]
 ```
@@ -119,7 +119,7 @@ output:
 
 ### example 3 - get all content types (an api used by admin frontend)
 
-```
+```js
 'use strict';
 
 require('dotenv').config();
