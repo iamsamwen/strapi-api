@@ -50,7 +50,7 @@ const StrapiApi = require('@iamsamwen/strapi-api');
             kind: 'collectionType',
             attributes: { title: { type: 'string' } }
         }
-    }
+    };
     const result = await strapi.post('/content-type-builder/content-types', data);
     
     console.log(result);
