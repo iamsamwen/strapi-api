@@ -32,10 +32,10 @@ describe('Test get admin apis', () => {
         expect(result.data.length).greaterThanOrEqual(9);
     });
 
-    it('test get content type hello configuration', async () => {
+    it('test get content type test configuration', async () => {
 
         const strapi = new StrapiApi();
-        const result = await strapi.get('/content-manager/content-types/api::hello.hello/configuration');
+        const result = await strapi.get('/content-manager/content-types/api::test.test/configuration');
         //console.log(JSON.stringify(result, null, 2));
         expect(result).haveOwnProperty('data');
         expect(result.data).haveOwnProperty('contentType');

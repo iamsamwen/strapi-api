@@ -21,7 +21,7 @@ const StrapiApi = require('../src');
     result = await strapi.get('/api/tests', id);
     console.log(result);
 
-    // get all entries of hellos
+    // get all entries of tests
     //
     result = await strapi.get_all('/api/tests');
     console.log(result);
