@@ -2,8 +2,8 @@
 
 require('dotenv').config();
 
-//const StrapiApi = require('@iamsamwen/strapi-api');
-const StrapiApi = require('../src');
+const StrapiApi = require('@iamsamwen/strapi-api');
+//const StrapiApi = require('../src');
 
 (async () => {
 

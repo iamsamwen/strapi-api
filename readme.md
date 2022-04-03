@@ -91,29 +91,6 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
 })()
 
-output:
-
-[
-  {
-    id: 552,
-    name: 'color blue',
-    alternativeText: 'color blue',
-    caption: 't-shirts',
-    width: 104,
-    height: 52,
-    formats: null,
-    hash: 'color_blue_8382d9f618',
-    ext: '.png',
-    mime: 'image/png',
-    size: 0.62,
-    url: 'https://.../t-shirts/color_blue_8382d9f618.png',
-    previewUrl: null,
-    provider: '...',
-    provider_metadata: null,
-    createdAt: '2022-04-03T11:01:15.770Z',
-    updatedAt: '2022-04-03T11:01:15.770Z'
-  }
-]
 ```
 
 
