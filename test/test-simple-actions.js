@@ -11,7 +11,7 @@ const expect = chai.expect;
 
 describe('Test simple actions', () => {
 
-    it('test post, get, put and del', async () => {
+    it('test api post, get, put and del', async () => {
 
         let id, title = 'test123';
 
@@ -62,4 +62,48 @@ describe('Test simple actions', () => {
         }
     });
 
+    it('test admin api post, get, put and del', async () => {
+
+        let id, title = 'test123';
+
+        {
+            const strapi = new StrapiApi();
+            const result = await strapi.post('/content-manager/collection-types/api::test.test', {title});
+            //console.log(result);
+            expect(result).haveOwnProperty('id');
+            id = result.id;
+            expect(result).haveOwnProperty('title');
+            expect(result.title).equals(title);
+        }
+
+        {
+            const strapi = new StrapiApi();
+            const result = await strapi.get('/content-manager/collection-types/api::test.test', id);
+            //console.log(result);
+            expect(result).haveOwnProperty('id');
+            expect(result).haveOwnProperty('title');
+            expect(result.title).equals(title);
+            expect(result.id).equals(id);
+        }
+
+        {
+            let new_title = 'new test123';
+
+            const strapi = new StrapiApi();
+            const result = await strapi.put('/content-manager/collection-types/api::test.test', id, {title: new_title});
+            //console.log(result);
+            expect(result).haveOwnProperty('id');
+            expect(result).haveOwnProperty('title');
+            expect(result.title).equals(new_title);
+        }
+
+        {
+            const strapi = new StrapiApi();
+            const result = await strapi.del('/content-manager/collection-types/api::test.test', id);
+            //console.log(result);
+            expect(result).haveOwnProperty('id');
+            expect(result).haveOwnProperty('title');
+            expect(result.id).equals(id);
+        }
+    });
 });

@@ -11,10 +11,10 @@ const expect = chai.expect;
 
 describe('Test simple actions', () => {
 
-    it('test post', async () => {
+    const strapi = new StrapiApi();
 
-        const strapi = new StrapiApi();
-        const result = await strapi.post('/api/tests', {data: {title: 'post test'}});
+    it('test post with api', async () => {
+        const result = await strapi.post('/api/tests', {data: {title: 'post test 1'}});
         //console.log(result);
         expect(result).haveOwnProperty('data');
         expect(result.data).haveOwnProperty('id');
@@ -22,4 +22,10 @@ describe('Test simple actions', () => {
         expect(result.data.attributes).haveOwnProperty('title');
     });
 
+    it('test post with admin api', async () => {
+        const result = await strapi.post('/content-manager/collection-types/api::test.test', {title: 'post test 2'});
+        //console.log(result);
+        expect(result).haveOwnProperty('id');
+        expect(result).haveOwnProperty('title');
+    });
 });

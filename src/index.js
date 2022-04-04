@@ -49,10 +49,18 @@ class StrapiApi {
     }
 
     async count(path, query) {
-        if (!query) query = {fields: ['id'], pagination: {page: 1, pageSize: 1}};
-        else query = { ...query, fields: ['id'], pagination: {page: 1, pageSize: 1}};
-        const {meta: {pagination: {total}}} = await this.search(path, query);
-        return total;
+        if (!query) query = {fields: ['id'], };
+        else query = { ...query, fields: ['id']};
+        const pagination = {page: 1, pageSize: 1};
+        const is_api_call = path.startsWith('/api/');
+        if (is_api_call) query.pagination = pagination;
+        else Object.assign(query, pagination);
+        const result = await this.search(path, query);;
+        if (is_api_call) {
+            return result.meta.pagination.total;
+        } else {
+            return result.pagination.total;
+        }
     }
 
     async get_ids(path, query) {
@@ -64,62 +72,66 @@ class StrapiApi {
     }
 
     async get_all(path, query) {
-        if (!query) query = {pagination: {pageSize: this.page_size}};
-        else query = {...query, pagination: {pageSize: this.page_size}};
+        if (!query) query = {};
+        else query = {...query};
+        const pagination = {pageSize: this.page_size};
+        const is_api_call = path.startsWith('/api/');
+        if (is_api_call) {
+            query.pagination = pagination;
+        } else {
+            Object.assign(query, pagination);
+        }
         const items = [];
         let page = 1;
         while (true) {
-            query.pagination.page = page;
-            const result = await this.search(path, query)
-            if (!result || !result.data || !result.meta) {
-                throw new Error('failed to search: ' + JSON.stringify(result));
+            if (is_api_call) query.pagination.page = page;
+            else query.page = page;
+            const result = await this.search(path, query);
+            if (is_api_call) {
+                if (!result || !result.data || !result.meta) {
+                    throw new Error('failed to search: ' + JSON.stringify(result));
+                }
+                const { data, meta: { pagination: { total }}} = result;
+                if (!data || data.length === 0) break;
+                items.push(...data);
+                if (items.length === total) break;
+            } else {
+                if (!result || !result.results || !result.pagination) {
+                    throw new Error('failed to search: ' + JSON.stringify(result));
+                }
+                const { results, pagination: { total }} = result;
+                if (!results || results.length === 0) break;
+                items.push(...results);
+                if (items.length === total) break;
             }
-            const { data, meta: { pagination: { total }}} = result;
-            if (!data || data.length === 0) break;
-            items.push(...data);
-            if (items.length === total) break;
             page++;
         }
         return items;
     }
 
     async get_page(path, query, page = 1, pageSize = this.page_size) {
-        if (!query) query = {pagination: {page, pageSize}};
-        else query = {...query, pagination: {page, pageSize}};
-        const { data } = await this.search(path, query);
-        if (data && data.length === 0) return null;
-        return data;
+        if (!query) query = {};
+        else query = {...query};
+        const pagination = {page, pageSize};
+        if (path.startsWith('/api/')) query.pagination = pagination;
+        else Object.assign(query, pagination);
+        return await this.search(path, query);
     }
 
     async del_all(path, query) {
-        const total = await this.count(path, query);
-        const pageSize = this.page_size;
-        const pageCount = Math.ceil(total / 100)
-        if (query) query = {...query, fields: ['id'], pagination: {page, pageSize}};
-        else query = {fields: ['id'], pagination: {pageSize}};
-        if (this.api_log || this.api_debug) console.log({total, pageCount, pageSize});
-        let count = 0;
-        let page = pageCount;
+        const ids = await this.get_ids(path, query);
         const promises = [];
-        while (true) {
-            query.pagination.page = page;
-            const { data } = await this.search(path, query);
-            if (data.length === 0) break;
-            if (this.api_log || this.api_debug) console.log('delete page', page, 'entries', data.length);
-            for (const {id} of data) {
-                count++;
-                promises.push(this.del(path, id));
-                if (promises.length === this.batch_size) {
-                    await Promise.all(promises);
-                    promises.length = 0;
-                }
+        for (const id of ids) {
+            promises.push(this.del(path, id));
+            if (promises.length === this.batch_size) {
+                await Promise.all(promises);
+                promises.length = 0;
             }
-            if (page > 1) page--;
         }
         if (promises.length > 0) {
             await Promise.all(promises);
         }
-        return count;
+        return ids.length;
     }
 
     async upload_file(filepath, {ref, id, field, path, name, caption, alternativeText} = {}) {
@@ -141,54 +153,6 @@ class StrapiApi {
 
         const url = `${this.base_url}/api/upload`;
         return await this.send_http_request({url, method: 'post', data: form, headers: form.getHeaders()});
-    }
-
-    async get_files_count(query) {
-
-        if (!query) query = {fields: ['id'], page: 1, pageSize: 1};
-        else query = {...query, fields: ['id'], page: 1, pageSize: 1};
-        const result = await this.search('/upload/files', query);
-        if (!result || !result.pagination) {
-            throw new Error('failed to search: ' + JSON.stringify(result));
-        }
-        return result.pagination.total;
-        
-    }
-
-    async get_files_page(page = 1, pageSize = this.page_size, query) {
-        if (!query) query = {page, pageSize};
-        else query = {...query, page, pageSize};
-        if (!query.sort) query.sort = 'updatedAt:DESC';
-        return await this.search('/upload/files', query);
-    }
-
-    async get_all_files(query) {
-        return await this.search('/api/upload/files', query);
-    }
-
-    async del_all_files(query) {
-        if (!query) query = {fields: ['id']};
-        else query = {...query, fields: ['id']};
-        let count = 0;
-        const promises = [];
-        while(true) {
-            const data = await this.get_all_files(query);
-            if (this.api_log || this.api_debug) console.log('delete files count', data.length);
-            if (data.length === 0) break;
-            for (const {id} of data) {
-                count++;
-                promises.push(this.del('/api/upload/files', id));
-                if (promises.length === 32) {
-                    if (this.api_log || this.api_debug) console.log('delete files', promises.length, 'total', count);
-                    await Promise.all(promises);
-                    promises.length = 0;
-                }
-            }
-        }
-        if (promises.length > 0) {
-            await Promise.all(promises);
-        }
-        return count;
     }
 
     get_url(path, id, query) {

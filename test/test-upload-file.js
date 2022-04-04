@@ -10,9 +10,9 @@ const assert = chai.assert;
 
 // NODE_ENV=test mocha --reporter spec test/test-upload-file
 
-describe('Test upload file, get_all_files and del_all_files', () => {
+describe('Test upload file, get all files and del all files', () => {
 
-    it('Test upload file, get_all_files and del_all_files', async () => {
+    it('Test upload file, get all files and del all files', async () => {
 
         {
             const strapi = new StrapiApi();
@@ -27,7 +27,7 @@ describe('Test upload file, get_all_files and del_all_files', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.get_all_files();
+            const result = await strapi.get_all('/upload/files');
             //console.log(result);
             assert.isArray(result);
             expect(result.length).greaterThanOrEqual(1);
@@ -35,7 +35,7 @@ describe('Test upload file, get_all_files and del_all_files', () => {
 
         {
             const strapi = new StrapiApi();
-            const result = await strapi.del_all_files();
+            const result = await strapi.del_all('/upload/files');
             //console.log(result);
             expect(result).greaterThanOrEqual(1);
         }

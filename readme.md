@@ -147,6 +147,8 @@ const StrapiApi = require('@iamsamwen/strapi-api');
 
 ```
 
+You may noticed that the data layout of results from api call and admin call are different.
+
 ## list of methods
 
 all methods are async. For how to use query, please read <a href="https://docs.strapi.io/developer-docs/latest/developer-resources/database-apis-reference/rest/filtering-locale-publication.html#filtering">strapi doc</a> for REST API: Filtering, Locale, and Publication State.
@@ -166,7 +168,3 @@ all methods are async. For how to use query, please read <a href="https://docs.s
 |get_page|path, query, page, page_size||
 |del_all|path, query||
 |upload_file|filepath, {ref, id, field, path, name, caption, alternativeText}|
-|get_files_count|query||
-|get_files_page|page, page_size, query||
-|get_all_files|query||
-|del_all_files|query||
