@@ -87,6 +87,9 @@ class StrapiApi {
             if (is_api_call) query.pagination.page = page;
             else query.page = page;
             const result = await this.search(path, query);
+            if (path.startsWith('/api/upload/files')) {
+                return result;
+            }
             if (is_api_call) {
                 if (!result || !result.data || !result.meta) {
                     throw new Error('failed to search: ' + JSON.stringify(result));
