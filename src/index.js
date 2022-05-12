@@ -207,7 +207,7 @@ class StrapiApi {
         try {
             const headers = await this.get_headers(config.url);
             if (config.headers) Object.assign(headers, config.headers);
-            config = {...config, headers};
+            config = {...config, headers, maxContentLength: Infinity, maxBodyLength: Infinity};
             if (this.api_debug) console.log(util.inspect(config, false, null, true));
             const { data } = await axios(config);
             if (this.api_debug) console.log(util.inspect(data, false, null, true));
