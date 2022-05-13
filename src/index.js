@@ -63,6 +63,20 @@ class StrapiApi {
         }
     }
 
+    async paging_through(path, query, callback) {
+        let page = 1, count = 0;
+        while (true) {
+            const result = await this.search(path, {...query, pagination: {pageSize: 100, page}});
+            const { data, meta: { pagination: { total }}} = result;
+            if (!data || data.length === 0) break;
+            await callback(data);
+            count += data.length;
+            if (count === total) break;
+            page++;
+        }
+        return count;
+    }
+
     async get_ids(path, query) {
         if (!query) query = {fields: ['id']};
         else query = { ...query, fields: ['id']};
